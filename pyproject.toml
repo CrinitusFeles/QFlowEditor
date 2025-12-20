@@ -1,0 +1,12 @@
+[project]
+name = "qfloweditor"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "qnodeeditor",
+]
+
+[tool.uv.sources]
+qnodeeditor = { git = "https://github.com/CrinitusFeles/QNodeEditor" }
