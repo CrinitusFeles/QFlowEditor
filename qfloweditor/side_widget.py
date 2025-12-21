@@ -8,7 +8,7 @@ from qnodeeditor.color_picker import ColorPicker
 
 
 class SideWidget(QWidget):
-    def __init__(self, user_nodes: list[type[AlgNode]] | None = None):
+    def __init__(self):
         super().__init__()
         self._layout = QVBoxLayout()
         self.setLayout(self._layout)
@@ -39,10 +39,15 @@ class SideWidget(QWidget):
         nodes: list[type[AlgNode]] = [get_class_from_opcode(op_code) for op_code in ALG_NODES.keys()]
         self.nodes_list = QDMDragListbox(nodes)
         self._layout.addWidget(self.nodes_list)
-        if user_nodes:
-            self.user_nodes_list = QDMDragListbox([])
-            self._layout.addWidget(self.user_nodes_list)
+        # if user_nodes:
+        self.user_nodes_list = QDMDragListbox([])
+        self._layout.addWidget(self.user_nodes_list)
 
     def on_colors_clicked(self):
         self.color_picker.show()
         self.color_picker.raise_()
+
+    def set_custom_elements(self, elements: list[tuple[str, str]]):
+        self.user_nodes_list.clear()
+        for (label, node_type) in elements:
+            self.user_nodes_list.addMyItem(label, node_type)
