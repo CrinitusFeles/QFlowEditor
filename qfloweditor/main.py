@@ -1,5 +1,6 @@
 import asyncio
-import os, sys
+import os
+import sys
 from PyQt6.QtGui import QCloseEvent
 from qtpy.QtWidgets import QApplication
 from qasync import QEventLoop
@@ -8,6 +9,17 @@ sys.path.insert(0, os.path.join( os.path.dirname(__file__), "..", ".." ))
 
 from qfloweditor.window import AlgorithmsWindow
 from qmodernwindow import ModernWindow
+from qcustomwindow import CustomWindow
+
+
+class SimpleWindow(CustomWindow):
+    def __init__(self, parent=None) -> None:
+        super().__init__(parent)
+        self.setTitle('Algorithm editor')
+        self.editor = AlgorithmsWindow()
+        self.editor.onFileNew()
+        self.addWidget(self.editor)
+
 
 class MainWindow(ModernWindow):
     def __init__(self) -> None:
@@ -28,7 +40,7 @@ if __name__ == '__main__':
     app_close_event = asyncio.Event()
     app.aboutToQuit.connect(app_close_event.set)
 
-    w = MainWindow()
+    w = SimpleWindow()
     signal.signal(signal.SIGINT, signal.SIG_DFL)
     w.show()
 
