@@ -22,26 +22,9 @@ Edge.registerEdgeValidator(edge_cannot_connect_two_outputs_or_two_inputs)
 Edge.registerEdgeValidator(edge_cannot_connect_input_and_output_of_same_node)
 
 
-style_string = """
-QDMNodeContentWidget {
-  background: transparent;
-}
-# QDMNodeContentWidget QFrame {
-#   background: transparent;
-# }
-QDMNodeContentWidget QLabel {
-  color: #e0e0e0;
-}
-QGraphicsView {
-  selection-background-color: #fff;
-}
-"""
-
 class AlgorithmsWindow(QMainWindow):
     def __init__(self):
         super().__init__()
-
-        QApplication.instance().setStyleSheet(style_string) # type: ignore
 
         self.empty_icon = QIcon(".")
 
@@ -229,6 +212,7 @@ class AlgorithmsWindow(QMainWindow):
         """Handle File Save As operation"""
         current_nodeeditor = self.getCurrentNodeEditorWidget()
         if current_nodeeditor is not None:
+            # current_nodeeditor.save_svg()
             fname, filter = QFileDialog.getSaveFileName(self, 'Save graph to file', self.getFileDialogDirectory(), self.getFileDialogFilter())
             if fname == '':
                 return False
