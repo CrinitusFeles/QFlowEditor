@@ -1,7 +1,7 @@
 from PyQt6.QtGui import QFontMetrics, QPainterPath
 from PyQt6.QtWidgets import QGraphicsItem
-from qtpy.QtGui import QImage, QPolygonF, QBrush, QColor
-from qtpy.QtCore import QRectF, Qt, QPointF
+from qtpy.QtGui import QPolygonF, QBrush, QColor
+from qtpy.QtCore import Qt, QPointF
 from qnodeeditor.graphics.node import QDMGraphicsNode
 from qnodeeditor.serializable.node import Node
 from qnodeeditor.colors import colors

@@ -14,9 +14,9 @@ class LoopEndContent(QDMNodeContentWidget):
         self.setLayout(self._layout)
         self._layout.setAlignment(Qt.AlignmentFlag.AlignCenter)
         font = QFont('Consolas', 12)
-        self.lbl1 = QLabel(f'')
+        self.lbl1 = QLabel('Iteration: ')
         self.lbl1.setFont(font)
-        self.current_value: int = 0;
+        self.current_value: int = 0
         self.lbl2 = QLabel(f'{self.current_value}')
         self.lbl2.setFont(font)
         self._layout.addWidget(self.lbl1)

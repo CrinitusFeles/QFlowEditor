@@ -1,7 +1,5 @@
-from qtpy.QtGui import QPixmap
 from qtpy.QtCore import QDataStream, QIODevice, Qt
 from qtpy.QtWidgets import QAction, QGraphicsProxyWidget, QMenu
-
 from qfloweditor.alg_conf import ALG_NODES, get_class_from_opcode, LISTBOX_MIMETYPE
 from qnodeeditor.editor_widget import NodeEditorWidget
 from qnodeeditor.edge.edge import EdgeType
@@ -92,14 +90,15 @@ class AlgorithmsSubWindow(NodeEditorWidget):
         try:
             item = self.scene.getItemAt(a0.pos())
 
-            if type(item) == QGraphicsProxyWidget:
+            if isinstance(item, QGraphicsProxyWidget):
                 item = item.widget()
             #elif item is None:
             else:
                 self.handleNewNodeContextMenu(a0)
 
             return super().contextMenuEvent(a0)
-        except Exception as e: dumpException(e)
+        except Exception as e:
+            dumpException(e)
 
     # helper functions
     def determine_target_socket_of_node(self, was_dragged_flag: bool, new_node):

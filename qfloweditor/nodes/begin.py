@@ -56,7 +56,11 @@ class BeginContent(QDMNodeContentWidget):
             node: Node = next_node
             print(f'Executing {node}')
             node.doSelect(True)
-            result: bool = await node.do_routine()
+            try:
+                result: bool = await node.do_routine()
+            except Exception as err:
+                print(err)
+                return
             node.doSelect(False)
             try:
                 match node:

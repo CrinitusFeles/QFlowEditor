@@ -1,3 +1,4 @@
+from functools import partial
 from typing import Type
 
 from typing import TYPE_CHECKING
@@ -9,13 +10,15 @@ if TYPE_CHECKING:
 LISTBOX_MIMETYPE = "application/x-item"
 
 
-ALG_NODES: dict[str, Type['AlgNode']] = {
-}
+ALG_NODES: dict[str, Type['AlgNode']] = {}
 
 
-class AlgConfException(Exception): pass
-class AlgInvalidNodeRegistration(AlgConfException): pass
-class AlgOpCodeNotRegistered(AlgConfException): pass
+class AlgConfException(Exception):
+    pass
+class AlgInvalidNodeRegistration(AlgConfException):
+    pass
+class AlgOpCodeNotRegistered(AlgConfException):
+    pass
 
 
 def register_alg_node_now(node_type: str, class_reference: Type['AlgNode']):
@@ -31,6 +34,7 @@ def register_alg_node(node_type: str):
         return original_class
     return decorator
 
+
 def get_class_from_opcode(node_type: str):
     if node_type not in ALG_NODES:
         raise AlgOpCodeNotRegistered(f"OpCode {node_type} is not registered")
@@ -40,4 +44,4 @@ def get_class_from_opcode(node_type: str):
 
 # import all nodes and register them
 # from qfloweditor.nodes import *
-from qfloweditor.nodes import *
+from qfloweditor.nodes import *   # noqa: E402, F403
