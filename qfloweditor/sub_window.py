@@ -40,7 +40,10 @@ class AlgorithmsSubWindow(NodeEditorWidget):
         context_menu = QMenu(self)
         keys = list(ALG_NODES.keys())
         for key in keys:
-            context_menu.addAction(self.node_actions[key])
+            try:
+                context_menu.addAction(self.node_actions[key])
+            except KeyError:
+                ...
         return context_menu
 
     def setTitle(self):
