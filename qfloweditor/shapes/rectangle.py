@@ -10,18 +10,25 @@ class RectangleGNode(QDMGraphicsNode):
     def __init__(self, node: Node, parent: QGraphicsItem | None = None):
         super().__init__(node, parent)
         fm = QFontMetrics(self._title_font)
-        size = fm.height()
-        width = (len(self.title_item.toPlainText())) / 2 * size
-        self.title_item.setPos((self.width - width) / 2, self.height / 2 - size / 2)
+        hsize = fm.height()
+        size = fm.averageCharWidth()
+        text = self.title_item.toPlainText()
+        width = len(text) * size
+        print(text, width, size)
+        self.width = 180
+        if self.width <= width:
+            self.width = width + 40
+
+        self.title_item.setTextWidth(self.width)
+        self.title_item.setPos((self.width - width) / 2, self.height / 2 - hsize / 2)
 
     def initSizes(self):
         super().initSizes()
-        self.width = 160
         self.height = 74
         self.edge_roundness = 0
         self.edge_padding = 0
-        self.title_horizontal_padding = 8
-        self.title_vertical_padding = 10
+        self.title_horizontal_padding = 0
+        self.title_vertical_padding = 0
 
     def paint(self, painter, option, widget=None):
         if not painter:
