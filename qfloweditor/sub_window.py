@@ -1,3 +1,4 @@
+from typing import Callable
 from qtpy.QtCore import QDataStream, QIODevice, Qt
 from qtpy.QtWidgets import QAction, QGraphicsProxyWidget, QMenu
 from qfloweditor.alg_conf import ALG_NODES, get_class_from_opcode, LISTBOX_MIMETYPE
@@ -22,6 +23,9 @@ class AlgorithmsSubWindow(NodeEditorWidget):
         self.scene.setNodeClassSelector(self.getNodeClassFromData)
 
         self._close_event_listeners = []
+
+    def setNodeClassSelector(self, selector: Callable):
+        self.scene.setNodeClassSelector(selector)
 
     def getNodeClassFromData(self, data: dict):
         if 'node_type' not in data:

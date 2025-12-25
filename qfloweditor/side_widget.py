@@ -51,3 +51,7 @@ class SideWidget(QWidget):
         self.user_nodes_list.clear()
         for (label, node_type) in elements:
             self.user_nodes_list.addMyItem(label, node_type)
+
+    def get_user_nodes(self) -> list[str]:
+        return [self.user_nodes_list.item(x).text()  # type: ignore
+                for x in range(self.user_nodes_list.count())]

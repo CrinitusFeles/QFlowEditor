@@ -1,4 +1,5 @@
 import json
+from typing import Callable
 from PyQt6.QtGui import QShortcut
 from qtpy.QtGui import QIcon, QKeySequence
 from qtpy.QtWidgets import QMdiArea, QDockWidget, QFileDialog, QMainWindow, QMessageBox, QVBoxLayout, QSplitter
@@ -36,6 +37,8 @@ class AlgorithmsWindow(QMainWindow):
         self.mdiArea.setTabsClosable(True)
         self.mdiArea.setTabsMovable(True)
         self.setCentralWidget(self.mdiArea)
+
+        self.node_class_selector: Callable | None = None
 
         self.side_widget = SideWidget()
         self.side_widget.create_btn.clicked.connect(self.onFileNew)
@@ -104,6 +107,8 @@ class AlgorithmsWindow(QMainWindow):
                     else:
                         # we need to create new subWindow and open the file
                         nodeeditor = AlgorithmsSubWindow()
+                        if self.node_class_selector:
+                            nodeeditor.setNodeClassSelector(self.node_class_selector)
                         if nodeeditor.fileLoad(fname):
                             nodeeditor.setTitle()
                             subwnd = self.createMdiChild(nodeeditor)
@@ -115,6 +120,8 @@ class AlgorithmsWindow(QMainWindow):
 
     def createMdiChild(self, child_widget=None):
         nodeeditor = child_widget if child_widget is not None else AlgorithmsSubWindow()
+        if self.node_class_selector is not None:
+            nodeeditor.setNodeClassSelector(self.node_class_selector)
         subwnd = self.mdiArea.addSubWindow(nodeeditor)
         if not subwnd:
             raise RuntimeError('Subwindow is None')
