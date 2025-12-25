@@ -100,6 +100,7 @@ class BeginContent(QDMNodeContentWidget):
                         if not result:
                             print('User aborted routine')
                             return
+                        next_node = node.getChildrenNodes()[0]
                         continue
                     case _:
                         next_node = node.getChildrenNodes()[0]

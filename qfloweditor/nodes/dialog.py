@@ -68,8 +68,6 @@ class AlgNode_Dialog(AlgNode):
                  outputs=[(2, SocketPosition.BOTTOM_CENTER)]):
         super().__init__(scene, inputs, outputs)
 
-    def evalOperation(self, input1, input2):
-        return input1 + input2
-
     async def do_routine(self):
-        return await UserDialog(self.content.text_edit.toPlainText())  # type: ignore
+        result = await UserDialog(self.content.text_edit.toPlainText())  # type: ignore
+        return result
